@@ -10,7 +10,7 @@ export default () => {
     return(
         <Container>
 
-            <Text style={{color:'#FFF'}}>Home</Text>
+            <Text style={{color:'#FFF'}}>Profile</Text>
 
         </Container>
     );
