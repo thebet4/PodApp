@@ -33,6 +33,7 @@ export default () => {
                                 id:response.data.id,
                                 name:response.data.name,
                                 login:response.data.email,
+                                avatar:response.data.avatar,
                             }
                         }
                     });
