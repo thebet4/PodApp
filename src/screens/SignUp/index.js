@@ -47,7 +47,12 @@ export default () => {
                     let response = await Rest.signUp(name,email,password,confirmPassword);
 
                     if(response.status == '200'){
+
                         console.log(response);
+                        navigation.reset({
+                            routes:[{name:"SignIn"}]
+                        });
+
                     }else{
                         alert(response.erro_msg)
                     }
