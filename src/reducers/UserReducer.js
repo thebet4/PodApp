@@ -1,14 +1,12 @@
 export const initialState = {
-
-    avatar:"",
+    user:{},
     favorites:[],
-
 };
 
 export const UserReducer = (state, action) => {
     switch(action.type) {
-        case 'setAvatar':
-            return{...state, avatar: action.payload.avatar};
+        case 'setUser':
+            return{...state, user: action.payload.user};
         break;
         
         default:
