@@ -21,12 +21,14 @@ export default {
 
     },
 
-    signUp: async (name,email,password,confirmPassword) => {
+    signUp: async (name,email,password,confirmPassword,photo) => {
+
         const response = await Api.post('/user/create',{
             name: name,
             email: email,
             password: password,
-            confirmPassword:confirmPassword 
+            confirmPassword:confirmPassword,
+            photo:photo
         });
         return response.data;
     }
