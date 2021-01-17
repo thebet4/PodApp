@@ -20,7 +20,7 @@ export default () => {
             const token = await AsyncStorage.getItem('podToken');
             // const token = await AsyncStorage.getItem('pod');
 
-            if(token){
+            if(!token){
                 let response = await Rest.checkToken(token);
                 console.log(response)
 

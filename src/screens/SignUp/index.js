@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-
+import React,{useState, useContext} from 'react';
 
 import { 
     Container,
@@ -10,12 +9,12 @@ import {
     SignMessageButtonText,
     SignMessageButtonTextBold,
 } from './styles';
-
 import SignInput from '../../components/SignInput';
 
-import {useNavigation} from '@react-navigation/native';
 
 import Rest from '../../services/rest';
+import {useNavigation} from '@react-navigation/native';
+import { SignUpContext } from '../../contexts/SignUpContext';
 
 import Logo from '../../assets/images/audio_player.svg';
 import EmailIcon from '../../assets/icons/email.svg';
@@ -24,6 +23,8 @@ import NameIcon from '../../assets/icons/account.svg';
 
 
 export default () => {
+    const { dispatch:SignUpDispatch } = useContext(SignUpContext);
+
     const [name,setName] = useState("");
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
@@ -31,31 +32,41 @@ export default () => {
 
     const navigation = useNavigation();
 
+    // Volta para Login
     const handleMessageButtonClick = () => {
         navigation.reset({
             routes:[{name:"SignIn"}]
         });
     }
 
+    // Valida dados
     const handleRegisterButtonClick = async() => {
+
+
 
         if(name && email && password && confirmPassword){
 
             if(email.indexOf('@') > 0 && email.indexOf('.com') > 0){
 
                 if(password == confirmPassword){
-                    let response = await Rest.signUp(name,email,password,confirmPassword);
 
-                    if(response.status == '200'){
+                    //Salvar em um context
+                    SignUpDispatch({
+                        type:'setUser',
+                        payload:{
+                            user:{
+                                name,
+                                login:email,
+                                password,
+                                confirmPassword
+                            }
+                        }
+                    });
 
-                        console.log(response);
-                        navigation.reset({
-                            routes:[{name:"SignIn"}]
-                        });
 
-                    }else{
-                        alert(response.erro_msg)
-                    }
+                    // redireciona para tela de foto
+                    navigation.navigate("SignUpPhoto");
+
 
                 }else{
                     alert("As senhas devem ser iguais");
@@ -114,7 +125,7 @@ export default () => {
                 <CustomButton>
 
                     <CustomButtonText onPress={handleRegisterButtonClick}>
-                        CADASTRAR
+                        PROXIMO
                     </CustomButtonText>
 
                 </CustomButton>
