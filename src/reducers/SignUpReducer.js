@@ -1,14 +1,16 @@
 export const initialState = {
-    user:{},//id,name,login,avatar
-    favorites:[],
+    user:{},//name,login,password,photo
 };
 
-export const UserReducer = (state, action) => {
+export const SignUpReducer = (state, action) => {
     switch(action.type) {
         case 'setUser':
             return{...state, user: action.payload.user};
         break;
         
+        case 'getUser':
+            return initialState.user;
+        break;
         default:
             return{...state}
     }
